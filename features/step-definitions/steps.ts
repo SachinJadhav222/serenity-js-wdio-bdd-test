@@ -1,10 +1,16 @@
 import 'expect-webdriverio';
 
 import { Given, Then, When } from '@cucumber/cucumber';
-import { Actor, actorInTheSpotlight } from '@serenity-js/core';
-import { Navigate } from '@serenity-js/webdriverio';
+import { Ensure, startsWith } from '@serenity-js/assertions';
+import { Actor, actorInTheSpotlight,Log, } from '@serenity-js/core';
+import { Navigate, Website } from '@serenity-js/webdriverio';
 
 import { Authenticate, VerifyAuthentication } from '../../test/authentication';
+import {
+    AccountPageTask,
+    HomePageTask,
+    LoginPageTask,
+} from '../../test/authentication';
 import { PickExample } from '../../test/examples';
 
 /**
@@ -17,6 +23,8 @@ Given('{actor} starts with the {string} example', async (actor: Actor, exampleNa
     actor.attemptsTo(
         Navigate.to('/'),
         PickExample.called(exampleName),
+        Log.the(Website.title()),
+        Ensure.that(Website.title(),startsWith('The')),
     )
 );
 
@@ -38,4 +46,26 @@ Then(/.* should see that authentication has (succeeded|failed)/, async (expected
         VerifyAuthentication[expectedOutcome](),
     )
 );
+
+Given('{actor} is on the home page', async (actor:Actor) => {
+    actor.attemptsTo(
+        Navigate.to('http://automationpractice.com/index.php'),
+        HomePageTask.clickSingInButton()
+    )
+});
+
+When('{actor} login with {string} and {string}',async (actor:Actor,username, password) => {
+    actor.attemptsTo(
+  
+        LoginPageTask.enterUsername(username),
+        LoginPageTask.enterPassword(password),
+        LoginPageTask.clickSingInButton()
+    )
+});
+
+Then('{actor} should see message saying {string}', async(actor:Actor,message) => {
+    actor.attemptsTo(
+        AccountPageTask.verifyPageHeading()
+    )
+});
 

@@ -1,20 +1,24 @@
 {
-  "name": "serenity-js-cucumber-webdriverio-template",
+  "name": "serenity-js-wdio-bdd-test",
   "version": "1.0.0",
-  "description": "",
+  "description": "Serenity Test Automation framework using WDIO , Cucumber BDD",
   "main": "index.js",
   "scripts": {
     "postinstall": "serenity-bdd update",
     "clean": "rimraf target",
-    "test": "failsafe clean test:execute test:report",
-    "test:execute": "wdio wdio.conf.ts",
-    "test:report": "serenity-bdd run --features ./features",
+    "test": "failsafe clean test-run report",
+    "test-run": "wdio ./config/wdio.conf.01.ts",
+    "report": "serenity-bdd run --features ./features",
     "lint": "eslint --ext ts --config .eslintrc.js .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+
+    "test-web": "wdio ./config/wdio.conf-web.ts",
+    "report-web":"serenity-bdd run --features ./test/wdio-test/features",
+    "test1":"failsafe clean test-web report-web"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template.git"
+    "url": "https://github.com/SachinJadhav222/serenity-js-wdio-bdd-test"
   },
   "keywords": [
     "serenity-js",
@@ -23,12 +27,8 @@
     "testing",
     "webdriverio"
   ],
-  "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template/issues"
-  },
-  "homepage": "https://serenity-js.org",
+  "author": "Sachin Jadhav",
+  
   "engines": {
     "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7 || ^8.0.0"

@@ -5,7 +5,12 @@ import { ArtifactArchiver } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfInteractions, WebdriverIOConfig } from '@serenity-js/webdriverio';
 
-import { Actors } from './test';
+import { Actors } from '../test';
+
+const featureFilePath='features/**/*.feature'
+ const stepDefinitionPath='features/**/*.ts'
+
+ 
 
 export const config: WebdriverIOConfig = {
 
@@ -52,7 +57,7 @@ export const config: WebdriverIOConfig = {
     // then the current working directory is where your `package.json` resides, so `wdio`
     // will be called from there.
     specs: [
-        './features/**/*.feature'
+        featureFilePath,'./features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -135,7 +140,8 @@ export const config: WebdriverIOConfig = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://the-internet.herokuapp.com/',
+   // baseUrl: 'https://the-internet.herokuapp.com/',
+    //baseUrl: '',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -174,7 +180,8 @@ export const config: WebdriverIOConfig = {
         // <string[]> (file/dir) require files before executing features
         require: [
             './features/support/*.ts',
-            './features/step-definitions/*.ts'
+            './features/step-definitions/*.ts',
+            stepDefinitionPath
         ],
         // <string[]> (type[:path]) specify native Cucumber.js output format, if needed. Optionally supply PATH to redirect formatter output (repeatable)
         format: [ ],
@@ -187,7 +194,7 @@ export const config: WebdriverIOConfig = {
         // <number> timeout for step definitions
         timeout: 60000,
         // <boolean> Fail if there are any undefined or pending steps.
-        strict: false
+        //strict: false
     },
     
     //
